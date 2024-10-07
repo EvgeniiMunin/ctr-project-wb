@@ -89,7 +89,6 @@ async def load_models_async(training_pipeline_params: TrainingPipelineParams, fo
     return model, ctr_transformer
 
 
-@app.get("/health")
 def check_models(model, ctr_transformer):
     """Check if models are loaded, load asynchronously if not."""
     #model, ctr_transformer = load_models_async(training_pipeline_params)
@@ -98,7 +97,6 @@ def check_models(model, ctr_transformer):
         raise HTTPException(status_code=400, detail="Models are unavailable")
 
 
-@app.get("/check_schema")
 def check_schema(features: list, training_pipeline_params: TrainingPipelineParams):
     if not set(training_pipeline_params.feature_params.ctr_features).issubset(
         set(features)
