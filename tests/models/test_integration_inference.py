@@ -53,3 +53,4 @@ def test_inference_model_invalid_data(processed_dataset_path: str):
     )
 
     assert response.status_code == 400
+    assert "Missing features in schema" in response.json()["detail"]
