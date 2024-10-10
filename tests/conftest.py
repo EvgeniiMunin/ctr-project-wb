@@ -12,9 +12,7 @@ handler = logging.StreamHandler(sys.stdout)
 logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
-
 fake = Faker()
-
 
 CATEGORIES = ["A", "B", "C", "D"]
 
@@ -58,7 +56,6 @@ def generate_synthetic_data():
 @pytest.fixture()
 def generate_synthetic_processed_data(generate_synthetic_data):
     raw_df = generate_synthetic_data(100)
-    print("raw_df: ", raw_df)
 
     def _generate_synthetic_processed_data():
         num_rows = raw_df.shape[0]
@@ -76,7 +73,6 @@ def generate_synthetic_processed_data(generate_synthetic_data):
     return _generate_synthetic_processed_data
 
 
-
 @pytest.fixture()
 def processed_dataset_path(generate_synthetic_processed_data):
     curdir = os.path.dirname(__file__)
@@ -84,9 +80,6 @@ def processed_dataset_path(generate_synthetic_processed_data):
 
     df = generate_synthetic_processed_data()
     file_path = curdir + "/synthetic_processed.csv"
-
-    print("df.info(): ", df.info(), "\n", df.head())
-    print("file_path: ", file_path)
 
     df.to_csv(file_path, index=False)
     return str(file_path)
@@ -96,13 +89,9 @@ def processed_dataset_path(generate_synthetic_processed_data):
 def dataset_path(generate_synthetic_data):
     curdir = os.path.dirname(__file__)
     logger.info(curdir)
-    print("curdir: ", curdir)
 
     df = generate_synthetic_data(100)
     file_path = curdir + "/synthetic_train.csv"
-
-    print("df.info(): ", df.info(), "\n", df.head())
-    print("file_path: ", file_path)
 
     df.to_csv(file_path, index=False)
     return str(file_path)
